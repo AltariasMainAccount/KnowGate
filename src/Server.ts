@@ -1,35 +1,51 @@
-// Import CJS modules.
+// Import all modules
 
-import { Sequelize, Model, DataTypes } from 'sequelize';
-import express from 'express';
-import * as path from 'path';
+import "reflect-metadata";
+import { createConnection } from "typeorm";
 
-const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: '../../ext/knowgate.sqlite'
+// Setup dotenv
+
+import * as dotenv from "dotenv";
+dotenv.config();
+
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+
+// Import Models
+
+import { Post } from "./Models/Post";
+import { Profile } from "./Models/Profile";
+import { PostComment } from "./Models/PostComment";
+
+const connection = createConnection({
+    type: "sqlite",
+    database: "../ext/knowgate.sqlite",
+    entities: [
+        Profile,
+        Post,
+        PostComment
+    ],
+    logging: false
 });
 
-export { sequelize };
+export { connection, Post, Profile, PostComment }
 
-(async () => {
-    try {
-        await sequelize.authenticate();
-        console.log("Success!");
-    } catch (error) {
-        console.error('Unable to connect to the database:', error);
-    }
-})();
+// Express Code goes here
 
-const app = express();
+if (!process.env.PORT) { console.log("The port is not defined"); process.exit(1); } // If port doesn't exist, exit out. No port, no boot.
 
-app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "../views/"));
+const port: number = parseInt(process.env.PORT as string, 10);
+const app = express(); // Declare Express App
 
-app.use(express.static("public"));
+// All the Middleware
 
-app.get("/", (req, res) => {
-    res.render("index");
-    console.log("Rendered index page.");
+app.use(helmet()); // Helmet reduces attack vectors by setting HTTP headers
+app.use(cors()); // CORS (https://de.wikipedia.org/wiki/Cross-Origin_Resource_Sharing)
+app.use(express.json()); // Default JSON Middleware
+
+// Enable listening on given port
+
+app.listen(port, () => {
+    console.log(`Listening on port ${port}`);
 });
-
-app.listen(5000);

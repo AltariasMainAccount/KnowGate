@@ -1,44 +1,17 @@
-// Sequelize Import
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-import { Sequelize, Model, DataTypes, Optional, HasManyGetAssociationsMixin, HasManyAddAssociationMixin, HasManyCountAssociationsMixin, HasManyHasAssociationMixin, HasManyCreateAssociationMixin, Association } from 'sequelize';
-import { sequelize } from '../Server';
+@Entity()
+export class PostComment {
 
-interface PostCommentAttributes {
-    id: number;
-    rating: number;
-    content: string;
-    belongsToPost: number;
+    @PrimaryGeneratedColumn()
+    id!: number;
+
+    @Column('number')
+    rating!: number;
+
+    @Column("text")
+    content!: string;
+
+    @Column('number')
+    belongsToPost!: number;
 }
-
-interface PostCommentCreationAttributes extends Optional<PostCommentAttributes, "id"> {}
-
-class PostCommentInstance extends Model<PostCommentAttributes, PostCommentCreationAttributes> implements PostCommentAttributes {
-    public id!: number;
-    public rating!: number;
-    public content!: string;
-    public belongsToPost!: number;
-};
-
-const PostComment = sequelize.define<PostCommentInstance>('PostComment', {
-    id: {
-        type: DataTypes.UUID,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true,
-        unique: true        
-    },
-    rating: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    content: {
-        type: new DataTypes.STRING(1000),
-        allowNull: false
-    },
-    belongsToPost: {
-        type: DataTypes.INTEGER,
-        allowNull: false    
-    }
-});
-
-export { PostComment };
