@@ -1,13 +1,13 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 import { Post } from "../Server";
 
-@Entity()
+@Entity('PostComment')
 export class PostComment {
 
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column('number')
+    @Column("int")
     rating!: number;
 
     @Column("text")

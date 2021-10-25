@@ -1,16 +1,12 @@
 // Import all modules
 
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { createConnection, Connection } from "typeorm";
 
 // Setup dotenv
 
 import * as dotenv from "dotenv";
 dotenv.config();
-
-import express from "express";
-import cors from "cors";
-import helmet from "helmet";
 
 // Import Models
 
@@ -18,29 +14,26 @@ import { Post } from "./Models/Post";
 import { Profile } from "./Models/Profile";
 import { PostComment } from "./Models/PostComment";
 
+// Set up connection
+
 const connection = createConnection({
     type: "sqlite",
     database: "../ext/knowgate.sqlite",
+    logging: false,
     entities: [
         __dirname + "/Models/*.js"
     ],
-    logging: false
 });
 
-export { connection, Post, Profile, PostComment }
+// Declare port and app
 
-// Express Code goes here
+const port: number = 8000;
 
-if (!process.env.PORT) { console.log("The port is not defined"); process.exit(1); } // If port doesn't exist, exit out. No port, no boot.
+// Helper Class - App
 
-const port: number = parseInt(process.env.PORT as string, 10);
-const app = express(); // Declare Express App
+import app from './App';
 
-// All the Middleware
-
-app.use(helmet()); // Helmet reduces attack vectors by setting HTTP headers
-app.use(cors()); // CORS (https://de.wikipedia.org/wiki/Cross-Origin_Resource_Sharing)
-app.use(express.json()); // Default JSON Middleware
+export { app, connection, Post, Profile, PostComment }
 
 // Enable listening on given port
 

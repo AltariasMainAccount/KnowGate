@@ -1,13 +1,13 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { PostComment } from "./PostComment";
 
-@Entity()
+@Entity('Post')
 export class Post {
 
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column('number')
+    @Column('int')
     creator!: number;
 
     @Column({

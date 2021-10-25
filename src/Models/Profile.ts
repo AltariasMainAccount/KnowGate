@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, Unique } from "typeorm";
 import { Post } from "./Post";
 
-@Entity()
+@Entity('Profile')
 @Unique(['id', 'name'])
 export class Profile {
 
