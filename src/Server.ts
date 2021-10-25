@@ -1,42 +1,29 @@
-// Import all modules
-
 import "reflect-metadata";
-import { createConnection, Connection } from "typeorm";
+import {createConnection} from "typeorm";
+import express, { Application } from "express";
+import morgan from "morgan";
+import swaggerUi from "swagger-ui-express";
 
-// Setup dotenv
+import Router from "./Routes/Routes";
 
-import * as dotenv from "dotenv";
-dotenv.config();
+const PORT = process.env.PORT || 8000;
 
-// Import Models
+const app: Application = express();
 
-import { Post } from "./Models/Post";
-import { Profile } from "./Models/Profile";
-import { PostComment } from "./Models/PostComment";
+app.use(express.json());
+app.use(morgan("tiny"));
+app.use(express.static("public"));
 
-// Set up connection
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(undefined, { swaggerOptions: { url: "/swagger.json", }, }));
 
-const connection = createConnection({
-    type: "sqlite",
-    database: "../ext/knowgate.sqlite",
-    logging: false,
-    entities: [
-        __dirname + "/Models/*.js"
-    ],
-});
+app.use(Router);
 
-// Declare port and app
-
-const port: number = 8000;
-
-// Helper Class - App
-
-import app from './App';
-
-export { app, connection, Post, Profile, PostComment }
-
-// Enable listening on given port
-
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
-});
+createConnection().then(_connection => {
+  console.log(_connection)
+  app.listen(PORT, () => {
+    console.log("Server is running on port", PORT);
+  });
+}).catch(err => {
+  console.log("Unable to connect to db", err);
+  process.exit(1)
+})

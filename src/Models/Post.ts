@@ -1,26 +1,32 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Profile } from "./Profile";
 import { PostComment } from "./PostComment";
 
-@Entity('Post')
+@Entity()
 export class Post {
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-    @PrimaryGeneratedColumn()
-    id!: number;
+  @Column()
+  title!: string;
 
-    @Column('int')
-    creator!: number;
+  @Column({
+    type: "text",
+  })
+  content!: string;
 
-    @Column({
-        length: 100
-    })
-    title!: string;
+  @Column({ nullable: true })
+  profileId!: number;
+  @ManyToOne((_type) => Profile, (prof: Profile) => prof.posts)
+  @JoinColumn()
+  profile!: Profile;
 
-    @Column("text")
-    content!: string;
+  @OneToMany((_type) => Comment, (comment: PostComment) => comment.post)
+  comments!: Array<Comment>;
 
-    @Column('text')
-    repositoryUrl!: string;
+  @CreateDateColumn()
+  createdAt!: Date;
 
-    @OneToMany(() => PostComment, postComment => postComment.belongsToPost)
-    comments?: PostComment[];
+  @UpdateDateColumn()
+  updatedAt!: Date;
 }

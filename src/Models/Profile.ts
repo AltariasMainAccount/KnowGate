@@ -1,10 +1,10 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, Unique } from "typeorm";
 import { Post } from "./Post";
+import { PostComment } from "./PostComment";
 
 @Entity('Profile')
 @Unique(['id', 'name'])
 export class Profile {
-
     @PrimaryGeneratedColumn()
     id!: number;
 
@@ -22,6 +22,9 @@ export class Profile {
     @Column("text")
     description!: string;
     
-    @OneToMany(() => Post, post => post.creator)
-    posts?: Post[];
+    @OneToMany((_type) => Post, (post: Post) => post.profile)
+    posts!: Array<Post>;
+  
+    @OneToMany((_type) => PostComment, (comment: PostComment) => comment.profile)
+    comments!: Array<Comment>;
 }

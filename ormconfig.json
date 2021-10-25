@@ -1,0 +1,20 @@
+{
+   "type": "sqlite",
+   "database": "ext/KnowGate.sqlite",
+   "synchronize": true,
+   "logging": false,
+   "entities": [
+      "src/Models/*.js"
+   ],
+   "migrations": [
+      "src/Migrations/*.js"
+   ],
+   "subscribers": [
+      "src/Subscribers/*.js"
+   ],
+   "cli": {
+      "entitiesDir": "src/Models",
+      "migrationsDir": "src/Migrations",
+      "subscribersDir": "src/Subscribers"
+   }
+}
