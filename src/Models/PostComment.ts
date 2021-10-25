@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import { Post } from "../Server";
 
 @Entity()
 export class PostComment {
@@ -12,6 +13,6 @@ export class PostComment {
     @Column("text")
     content!: string;
 
-    @Column('number')
+    @ManyToOne(() => Post, post => post.comments)
     belongsToPost!: number;
 }

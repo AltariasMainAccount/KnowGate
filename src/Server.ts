@@ -22,9 +22,7 @@ const connection = createConnection({
     type: "sqlite",
     database: "../ext/knowgate.sqlite",
     entities: [
-        Profile,
-        Post,
-        PostComment
+        __dirname + "/Models/*.js"
     ],
     logging: false
 });

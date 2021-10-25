@@ -21,6 +21,6 @@ export class Post {
     @Column('text')
     repositoryUrl!: string;
 
-    @OneToMany(type => PostComment, postComment => postComment.belongsToPost)
+    @OneToMany(() => PostComment, postComment => postComment.belongsToPost)
     comments?: PostComment[];
 }

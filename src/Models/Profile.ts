@@ -22,6 +22,6 @@ export class Profile {
     @Column("text")
     description!: string;
     
-    @OneToMany(type => Post, post => post.creator)
+    @OneToMany(() => Post, post => post.creator)
     posts?: Post[];
 }

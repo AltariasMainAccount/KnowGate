@@ -44,7 +44,20 @@ export const find = async (req: Request, res: Response) => {
 };
 
 export const create = async (req: Request, res: Response) => {
-    // Create Function
+    connection.then(async connection => {
+        let requestProfile = req.body;             
+        let profile = new Profile();
+        profile.name = requestProfile.name;
+        bcrypt.hash(requestProfile.pass, 10, (err, enc) => {
+            profile.password = enc;
+        });
+        profile.description = requestProfile.desc; 
+        await connection.manager.save(profile);
+        res.json({message: "Successfully Saved."})
+    }).catch(error => {
+        console.error("Error ", error);
+        res.json(error);
+    });
 };
 
 export const update = async (req: Request, res: Response) => {
