@@ -1,5 +1,5 @@
-.idea/
-.vscode/
-node_modules/
-out/
-ext/
+node_modules
+out
+ext
+.idea
+.vscode
