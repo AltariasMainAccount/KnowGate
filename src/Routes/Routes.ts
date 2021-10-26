@@ -6,14 +6,18 @@ import PostCommentRouter from "./postcomment.router";
 
 const router = express.Router();
 
-router.get("/ping", async (_req, res) => {
+router.get("/", async (_req, res) => {
+  res.render("index");
+})
+
+router.get("/api/ping", async (_req, res) => {
   const controller = new PingController();
   const response = await controller.getMessage();
   return res.send(response);
 });
 
-router.use("/profiles", ProfileRouter);
-router.use("/posts", PostRouter);
-router.use("/postcomments", PostCommentRouter);
+router.use("/api/profiles", ProfileRouter);
+router.use("/api/posts", PostRouter);
+router.use("/api/postcomments", PostCommentRouter);
 
 export default router;

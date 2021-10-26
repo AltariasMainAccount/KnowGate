@@ -4,6 +4,7 @@ import { Post } from '../Models/ModelLoader';
 export interface IPostPayload {
     title: string;
     content: string;
+    repositoryUrl: string;
     profileId: number;
 }
 

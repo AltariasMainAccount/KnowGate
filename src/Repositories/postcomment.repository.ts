@@ -3,8 +3,9 @@ import { PostComment } from '../Models/ModelLoader';
 
 export interface IPostCommentPayload {
     content: string;
+    rating: number;
     profileId: number;
-    postCommentId: number;
+    postId: number;
 }
 
 export const getPostComments = async (): Promise<Array<PostComment>> => {

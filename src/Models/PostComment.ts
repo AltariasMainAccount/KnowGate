@@ -12,6 +12,11 @@ export class PostComment {
   })
   content!: string;
 
+  @Column({
+    type: "int"
+  })
+  rating!: number;
+
   @Column({ nullable: true })
   profileId!: number;
   @ManyToOne((_type) => Profile, (prof: Profile) => prof.comments)

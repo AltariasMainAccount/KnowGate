@@ -4,6 +4,7 @@ import { Profile } from '../Models/ModelLoader';
 export interface IProfilePayload {
     name: string;
     password: string;
+    description: string;
 }
 
 export const getProfiles = async (): Promise<Array<Profile>> => {

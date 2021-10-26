@@ -21,7 +21,7 @@ export class Post {
   @JoinColumn()
   profile!: Profile;
 
-  @OneToMany((_type) => Comment, (comment: PostComment) => comment.post)
+  @OneToMany((_type) => PostComment, (comment: PostComment) => comment.post)
   comments!: Array<Comment>;
 
   @CreateDateColumn()
