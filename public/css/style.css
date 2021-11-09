@@ -1,5 +1,134 @@
+/*
+    Window information
+*/
+
 body {
-    background: darkslategray;
+    margin: 0;
+    background: #505060;
     font-family: monospace;
     color: white;
 }
+
+/*
+    Header Information
+*/
+
+/* Horizontal Header */
+
+#hHeader {
+    background-color: #505060;
+    text-align: center;
+    padding: 20px;
+    margin-top: 60px;
+}
+
+#hHeader h1 {
+    font-size:xx-large;
+}
+
+#hHeader p {
+    color: #C0C0F0;
+    font-size: large;
+}
+
+/* Vertical Header */
+
+#vHeader {
+    background-color: #505060;
+    text-align: center;
+    padding: 20px;
+    margin-top: 0px;
+}
+
+#vHeader h1 {
+    font-size:xx-large;
+}
+
+#vHeader p {
+    color: #C0C0F0;
+    font-size: large;
+}
+
+/*
+    Horizontal Navigation Bar
+*/
+
+#hNavbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #334;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+#hNavbar li {
+    float: left;
+}
+
+#hNavbar .rightbound {
+    float: right;
+} 
+  
+#hNavbar li a {
+    display: block;
+    color: #AAAAFF;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+  
+#hNavbar li a:hover:not(.active) {
+    background-color: #101020;
+}
+
+/*
+    Vertical Navbar - Useful for dashboard stuff
+*/
+
+#vNavbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 15%;
+    background-color: #334;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+  
+#vNavbar li a {
+    display: block;
+    color: #AAAAFF;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+  
+#vNavbar li a:hover:not(.active) {
+    background-color: #101020;
+    color: white;
+}
+
+/*
+    Content Information
+*/
+
+#vContent { /* VERTICAL NAVBAR CONTENT JUSTIFIER */
+    margin-left:15%;
+    padding:1px 16px;
+    background-color: #202030;
+    height:1500px;
+}
+
+#hContent { /* HORIZONTAL NAVBAR CONTENT JUSTIFIER */
+    padding:20px;
+    margin-top:30px;
+    background-color: #202030;
+    height:1500px;
+}
+
+/*
+    Footer Information
+*/

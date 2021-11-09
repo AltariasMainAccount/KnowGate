@@ -18,8 +18,27 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const controller = new ProfileController();
   const response = await controller.getProfile(req.params.id);
-  if (!response) res.status(404).send({ message: "No user found" });
+  if (!response) res.status(404).send({ message: "No profile found" });
   return res.send(response);
 });
+
+router.put("/:id", async (req, res) => {
+  const controller = new ProfileController();
+  const response = await controller.updateProfile(req.params.id, req.body);
+  if (!response) res.status(404).send({ message: "No profile found" });
+  return res.send(response);  
+});
+
+router.delete("/:id", async (req, res) => {
+  /*
+  const controller = new ProfileController();
+  const response = await controller.deleteProfile(req.params.id);
+  if (!response) res.status(404).send({ message: "No profile found" });
+  return res.send(response);  
+  */
+
+  return res.send({ message: "Profiles cannot be deleted from the API due to Foreign Key Constraints." })
+});
+
 
 export default router;

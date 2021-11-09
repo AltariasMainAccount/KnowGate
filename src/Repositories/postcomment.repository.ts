@@ -1,4 +1,4 @@
-import { getRepository } from "typeorm";
+import { DeleteResult, getRepository } from "typeorm";
 import { PostComment } from '../Models/ModelLoader';
 
 export interface IPostCommentPayload {
@@ -27,4 +27,25 @@ export const getPostComment = async (id: number): Promise<PostComment | undefine
     const postComment = await postCommentRepository.findOne({ id: id });
     if (!postComment) return null;
     return postComment;
+};
+
+/*
+    API - VERSION 2 - UPDATE AND DELETE FUNCTIONALITY ADDED
+*/
+
+export const updatePostComment = async (id: number, updatePayload: IPostCommentPayload): Promise<PostComment | undefined | null> => {
+    const postCommentRepository = getRepository(PostComment);
+    const postComment = await postCommentRepository.findOne({ id: id });
+    if (!postComment) return null;
+    return postCommentRepository.save({
+        ...postComment,
+        ...updatePayload,
+    });
+};
+
+export const deletePostComment = async (id: number): Promise<DeleteResult | undefined | null> => {
+    const postCommentRepository = getRepository(PostComment);
+    const postComment = await postCommentRepository.findOne({ id: id });
+    if (!postComment) return null;
+    return postCommentRepository.delete({ id: id });
 };

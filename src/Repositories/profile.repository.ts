@@ -1,4 +1,4 @@
-import { getRepository } from "typeorm";
+import { DeleteResult, getRepository } from "typeorm";
 import { Profile } from '../Models/ModelLoader';
 
 export interface IProfilePayload {
@@ -26,4 +26,25 @@ export const getProfile = async (id: number): Promise<Profile | undefined | null
     const profile = await profileRepository.findOne({ id: id });
     if (!profile) return null;
     return profile;
+};
+
+/*
+    API - VERSION 2 - UPDATE AND DELETE FUNCTIONALITY ADDED
+*/
+
+export const updateProfile = async (id: number, updatePayload: IProfilePayload): Promise<Profile | undefined | null> => {
+    const profileRepository = getRepository(Profile);
+    const profile = await profileRepository.findOne({ id: id });
+    if (!profile) return null;
+    return profileRepository.save({
+        ...profile,
+        ...updatePayload,
+    });
+};
+
+export const deleteProfile = async (id: number): Promise<DeleteResult | undefined | null> => {
+    const profileRepository = getRepository(Profile);
+    const profile = await profileRepository.findOne({ id: id });
+    if (!profile) return null;
+    return profileRepository.delete({ id: id });
 };
