@@ -11,7 +11,12 @@ export const getProfiles = async (): Promise<Array<Profile>> => {
     const profileRepository = getRepository(Profile);
     return profileRepository.find();
 };
-  
+
+/*
+    API - VERSION 3 - DISCONTINUE CREATEPROFILE IN FAVOR OF REGISTER
+*/
+
+/*
 export const createProfile = async (payload: IProfilePayload): Promise<Profile> => {
     const profileRepository = getRepository(Profile);
     const profile = new Profile();
@@ -20,7 +25,8 @@ export const createProfile = async (payload: IProfilePayload): Promise<Profile> 
       ...payload,
     });
 };
-  
+*/
+
 export const getProfile = async (id: number): Promise<Profile | undefined | null> => {
     const profileRepository = getRepository(Profile);
     const profile = await profileRepository.findOne({ id: id });

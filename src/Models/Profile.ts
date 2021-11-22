@@ -2,6 +2,10 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany, Unique, BeforeInsert
 import { Post } from "./Post";
 import { PostComment } from "./PostComment";
 import * as bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
+import { response } from 'express';
+
+import { SECRET } from "../Server";
 
 @Entity('Profile')
 @Unique(['id', 'name'])
@@ -10,7 +14,9 @@ export class Profile {
     id!: number;
 
     @Column({
-        length: 32
+        length: 32,
+        unique: true,
+        type: "text"
     })
     name!: string;
 
@@ -20,7 +26,11 @@ export class Profile {
     })
     password!: string; 
 
-    @Column("text")
+    @Column({
+        nullable: true,
+        length: 500,
+        type: "text"
+    })
     description!: string;
     
     @OneToMany((_type) => Post, (post: Post) => post.profile)
@@ -29,9 +39,19 @@ export class Profile {
     @OneToMany((_type) => PostComment, (comment: PostComment) => comment.profile)
     comments!: Array<Comment>;
 
-    @BeforeInsert()
-    async setPassword(password: string) {
-      const salt = await bcrypt.genSalt();
-      this.password = await bcrypt.hash(password || this.password, salt);
+    async setPassword (password: string) {
+        const salt = await bcrypt.genSalt();
+        return await bcrypt.hash(password || this.password, salt);
+    }
+
+    generateJWT() {
+        let token: string = jwt.sign({
+            name: this.name,
+            id: this.id
+        }, `${SECRET}`, {
+            expiresIn: '1h'
+        })
+
+        return token;
     }
 }

@@ -18,21 +18,27 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const controller = new PostCommentController();
   const response = await controller.getPostComment(req.params.id);
-  if (!response) res.status(404).send({ message: "No post comment found" });
+  if (!response) {
+    return res.status(404).send({ message: "No post comment found" });
+  }
   return res.send(response);
 });
 
 router.put("/:id", async (req, res) => {
   const controller = new PostCommentController();
   const response = await controller.updatePostComment(req.params.id, req.body);
-  if (!response) res.status(404).send({ message: "No post comment found" });
+  if (!response) {
+    return res.status(404).send({ message: "No post comment found" });
+  }
   return res.send(response);  
 });
 
 router.delete("/:id", async (req, res) => {
   const controller = new PostCommentController();
   const response = await controller.deletePostComment(req.params.id);
-  if (!response) res.status(404).send({ message: "No post comment found" });
+  if (!response) {
+    return res.status(404).send({ message: "No post comment found" });
+  }
   return res.send(response);  
 });
 

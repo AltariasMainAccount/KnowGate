@@ -1,7 +1,6 @@
 {
    "type": "sqlite",
    "database": "ext/KnowGate.sqlite",
-   "synchronize": true,
    "logging": false,
    "entities": [
       "out/Models/*.js"

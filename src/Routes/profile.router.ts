@@ -9,23 +9,17 @@ router.get("/", async (_req, res) => {
   return res.send(response);
 });
 
-router.post("/", async (req, res) => {
-  const controller = new ProfileController();
-  const response = await controller.createProfile(req.body);
-  return res.send(response);
-});
-
 router.get("/:id", async (req, res) => {
   const controller = new ProfileController();
   const response = await controller.getProfile(req.params.id);
-  if (!response) res.status(404).send({ message: "No profile found" });
+  if (!response) return res.status(404).send({ message: "No profile found" });
   return res.send(response);
 });
 
 router.put("/:id", async (req, res) => {
   const controller = new ProfileController();
   const response = await controller.updateProfile(req.params.id, req.body);
-  if (!response) res.status(404).send({ message: "No profile found" });
+  if (!response) return res.status(404).send({ message: "No profile found" });
   return res.send(response);  
 });
 
