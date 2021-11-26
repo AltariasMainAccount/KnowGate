@@ -5,6 +5,7 @@ export interface IProfilePayload {
     name: string;
     password: string;
     description: string;
+    short_desc: string;
 }
 
 export const getProfiles = async (): Promise<Array<Profile>> => {
@@ -31,6 +32,8 @@ export const getProfile = async (id: number): Promise<Profile | undefined | null
     const profileRepository = getRepository(Profile);
     const profile = await profileRepository.findOne({ id: id });
     if (!profile) return null;
+    profile.posts = await profileRepository.createQueryBuilder().relation(Profile, "posts").of(profile).loadMany()
+    
     return profile;
 };
 

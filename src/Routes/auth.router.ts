@@ -5,15 +5,20 @@ const router = express.Router();
 
 router.post("/login", async (req, res) => {
     const controller = new AuthController();
+    console.log(req.body);
     const response = await controller.login(req.body);
-    if (!response.res) {
+    if (response.res == false) {
         return res.status(401).send({ message: response.error });
+    }
+
+    if(response.access_token == null) {
+        return res.status(401).send({ message: "Something went wrong." });
     }
 
     let expireDate = new Date();
     expireDate.setHours(expireDate.getHours()+1);
     
-    await res.cookie('access_token', response.access_token, {
+    res.cookie('access_token', response.access_token, {
         expires: expireDate,
         secure: false, // set to true if your using https
         httpOnly: true,

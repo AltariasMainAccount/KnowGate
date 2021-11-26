@@ -4,6 +4,7 @@ import { Post } from '../Models/ModelLoader';
 export interface IPostPayload {
     title: string;
     content: string;
+    short_desc: string;
     repositoryUrl: string;
     profileId: number;
 }
@@ -24,7 +25,7 @@ export const createPost = async (payload: IPostPayload): Promise<Post> => {
   
 export const getPost = async (id: number): Promise<Post | undefined | null> => {
     const postRepository = getRepository(Post);
-    const post = await postRepository.findOne({ id: id });
+    const post = await postRepository.findOne({ id: id }, { relations: ["comments", "comments.profile"]  });
     if (!post) return null;
     return post;
 };

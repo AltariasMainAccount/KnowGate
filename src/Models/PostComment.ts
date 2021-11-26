@@ -17,13 +17,13 @@ export class PostComment {
   })
   rating!: number;
 
-  @Column({ nullable: true })
+  @Column()
   profileId!: number;
   @ManyToOne((_type) => Profile, (prof: Profile) => prof.comments)
   @JoinColumn()
   profile!: Profile;
 
-  @Column({ nullable: true })
+  @Column()
   postId!: number;
   @ManyToOne((_type) => Post, (post: Post) => post.comments)
   @JoinColumn()

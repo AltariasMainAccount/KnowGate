@@ -6,6 +6,7 @@ export function jwt() {
     return expressJwt({ 
         secret: `${SECRET}`, 
         algorithms: ['HS256'],
+        resultProperty: 'locals.user',
         getToken: function fromCookieOrHeader (req) {
             //get cookie token from request
             const token: string = req.cookies.access_token;

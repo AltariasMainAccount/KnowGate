@@ -12,14 +12,11 @@ body
     div(id='vNavbar')
         ul
             li
-                a(href='/posts/list') Posts
+                a(href='/profiles/my') My Profile (#{name})
             li
-                a(href='/profiles/list') Profiles
+                a(href='/posts') All Posts
             li
-                a(href='/contact') Contact
-            li
-                a(href='/about') About
-    div(id='vHeader')
-        h1 Knowgate 
-        p Testing Something
+                a(href='/profiles') All Profiles
+            li(class='downbound')
+                a(href='/logout') Log out
     block content

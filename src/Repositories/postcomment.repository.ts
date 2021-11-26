@@ -1,5 +1,5 @@
 import { DeleteResult, getRepository } from "typeorm";
-import { PostComment } from '../Models/ModelLoader';
+import { PostComment, Profile } from '../Models/ModelLoader';
 
 export interface IPostCommentPayload {
     content: string;
@@ -10,7 +10,7 @@ export interface IPostCommentPayload {
 
 export const getPostComments = async (): Promise<Array<PostComment>> => {
     const postCommentRepository = getRepository(PostComment);
-    return postCommentRepository.find();
+    return postCommentRepository.find({ relations: ["profile"] });
 };
   
 export const createPostComment = async (payload: IPostCommentPayload): Promise<PostComment> => {
@@ -26,6 +26,8 @@ export const getPostComment = async (id: number): Promise<PostComment | undefine
     const postCommentRepository = getRepository(PostComment);
     const postComment = await postCommentRepository.findOne({ id: id });
     if (!postComment) return null;
+    postComment.profile = <Profile> await postCommentRepository.createQueryBuilder().relation(PostComment, "profile").of(postComment).loadOne();
+    
     return postComment;
 };
 

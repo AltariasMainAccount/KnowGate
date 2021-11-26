@@ -4,7 +4,7 @@
 
 body {
     margin: 0;
-    background: #505060;
+    background: #202030;
     font-family: monospace;
     color: white;
 }
@@ -92,13 +92,13 @@ body {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 15%;
+    width: 10%;
     background-color: #334;
     position: fixed;
     height: 100%;
     overflow: auto;
 }
-  
+
 #vNavbar li a {
     display: block;
     color: #AAAAFF;
@@ -111,12 +111,17 @@ body {
     color: white;
 }
 
+#vNavbar .downbound {
+    position: absolute;
+    bottom: 0;
+}
+
 /*
     Content Information
 */
 
 #vContent { /* VERTICAL NAVBAR CONTENT JUSTIFIER */
-    margin-left:15%;
+    margin-left:10%;
     padding:1px 16px;
     background-color: #202030;
     height:1500px;
@@ -127,6 +132,71 @@ body {
     margin-top:30px;
     background-color: #202030;
     height:1500px;
+}
+
+/*
+    Content Extra Stuff (for rendering purposes)
+*/
+
+#contentCell {
+    /* Margins */
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 1%;
+    /* Padding */
+    padding: 10px;
+    /* Border Stuff */
+    border: 2px solid #303040;
+    border-radius: 5px;
+    /* Coloration */
+    background-color: #303040;
+}
+
+#contentCell h1 {
+    margin-left: 1%;
+}
+
+#contentCell h2 {
+    margin-left: 1%;
+}
+
+#contentCell h1 a {
+    color: #AAAAFF;
+}
+
+#contentCell h2 a {
+    color: #AAAAFF;
+}
+
+#contentCell a {
+    margin-left: 1%;
+    color: #AAAAFF;
+}
+
+#contentCell p {
+    margin-left: 1%;
+}
+
+#extraContentCell {
+    /* Margins */
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 1%;
+    /* Padding */
+    padding: 10px;
+    /* Border Stuff */
+    border: 2px solid #252535;
+    border-radius: 5px;
+    /* Coloration */
+    background-color: #252535;
+}
+
+#extraContentCell h4 {
+    margin-left: 1%;
+}
+
+#extraContentCell p {
+    margin-left: 1%;
 }
 
 /*

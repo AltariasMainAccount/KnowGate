@@ -33,6 +33,13 @@ export class Profile {
     })
     description!: string;
     
+    @Column({
+        nullable: true,
+        length: 100,
+        type: "text"
+    })
+    short_desc!: string;
+
     @OneToMany((_type) => Post, (post: Post) => post.profile)
     posts!: Array<Post>;
   

@@ -15,6 +15,20 @@ export class Post {
   })
   content!: string;
 
+  @Column({
+    nullable: true,
+    length: 100,
+    type: "text"
+  })
+  short_desc!: string;
+
+  @Column({
+    nullable: true,
+    length: 100,
+    type: "text"
+  })
+  repositoryUrl!: string;
+
   @Column({ nullable: true })
   profileId!: number;
   @ManyToOne((_type) => Profile, (prof: Profile) => prof.posts)
