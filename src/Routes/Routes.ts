@@ -10,7 +10,19 @@ const router = express.Router();
 // PUBLIC Web Routes
 
 router.get("/", async (_req, res) => {
-    res.render("index");
+  res.render("index");
+});
+
+router.get("/news", async (_req, res) => {
+  res.render("news");
+});
+
+router.get("/about", async (_req, res) => {
+  res.render("about");
+});
+
+router.get("/contact", async (_req, res) => {
+  res.render("contact");
 });
 
 router.get("/login", async (_req, res) => {
@@ -23,7 +35,7 @@ router.get("/register", async (_req, res) => {
 
 // PROTECTED Web Routes
 
-router.get("/dashboard", async (_req, res) => {
+router.get("/dashboard", async (_req, res) => { // Dashboard (aka HomePage)
   let auth = res.locals.user;
   
   res.render("web/dashboard", {
@@ -32,7 +44,7 @@ router.get("/dashboard", async (_req, res) => {
   });
 });
 
-router.get("/profiles", async (_req, res) => {
+router.get("/profiles", async (_req, res) => { // View all profiles
   let auth = res.locals.user;
 
   res.render("web/view_all", {
@@ -41,7 +53,7 @@ router.get("/profiles", async (_req, res) => {
   });
 });
 
-router.get("/profiles/view/:id", async (_req, res) => {
+router.get("/profiles/view/:id", async (_req, res) => { // View One Profile
   let auth = res.locals.user;
   
   res.render("web/view_one", {
@@ -50,7 +62,7 @@ router.get("/profiles/view/:id", async (_req, res) => {
   });
 });
 
-router.get("/profiles/my", async (_req, res) => {
+router.get("/profiles/my", async (_req, res) => { // My Profile
   let auth = res.locals.user;
   
   res.render("web/my_profile", {
@@ -59,7 +71,7 @@ router.get("/profiles/my", async (_req, res) => {
   }); 
 })
 
-router.get("/profiles/my/edit", async (_req, res) => {
+router.get("/profiles/my/edit", async (_req, res) => { // Edit My Profile
   let auth = res.locals.user;
   
   res.render("web/edit_profile", {
@@ -68,7 +80,7 @@ router.get("/profiles/my/edit", async (_req, res) => {
   }); 
 })
 
-router.get("/posts", async (_req, res) => {
+router.get("/posts", async (_req, res) => { // View All Posts
   let auth = res.locals.user;
   
   res.render("web/view_all", {
@@ -77,7 +89,7 @@ router.get("/posts", async (_req, res) => {
   });
 });
 
-router.get("/posts/view/:id", async (_req, res) => {
+router.get("/posts/view/:id", async (_req, res) => { // View One Post
   let auth = res.locals.user;
   
   res.render("web/view_one", {
@@ -85,6 +97,15 @@ router.get("/posts/view/:id", async (_req, res) => {
     id: auth.id
   });
 });
+
+router.get("/posts/create", async (_req, res) => {
+  let auth = res.locals.user;
+  
+  res.render("web/post_create", {
+    name: auth.name,
+    id: auth.id
+  });  
+})
 
 // API Routes
 

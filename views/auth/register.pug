@@ -3,16 +3,15 @@ extends ../layouts/hLayout.pug
 block content
     div(id='hContent')
         div(id='registerFormHolder')
-            form(id='registerForm' onsubmit='return false')
+            div(id='registerForm')
                 h1 Registration Form 
-                div(class='formRow')
+                div(id='formRow')
                     label(for="Username") Username:
                     input(type="text" size="15" id="Username" name="Username") 
-                div(class='formRow')
+                div(id='formRow')
                     label(for="Password") Password:
                     input(type="password" size="15" id="Password" name="Password") 
-                div(class='formRow' id='RegisterButtonDiv')
-                    input(type="submit", value="Register")
-                div(id='badRegistration')
-                    p The registration failed, there's already a user with that name.
+                div(id='formRow')
+                    button(id="registerButton" onclick="register()") Register
+
     script(src="js/api.js") 

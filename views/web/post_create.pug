@@ -1,9 +1,25 @@
 extends ../layouts/vLayout.pug
 
 block content 
+    p(id='myID') #{id}
+    p(id='myName') #{name}
     div(id='vContent')
-        h1(id='a_H1') View All
-        p(id='a_P') View All Things returned by the API
-        div(id='contentHolder')
+        h1(id='a_H1') Edit your profile
+        p(id='a_P') You can only edit your profile anyways.
+        div(id='editorForm')
+            div(id='formRow')
+                    label(for="Title") Post Title:
+                    input(type="text" id="Username" name="Username")
+            div(id='formRow')
+                    label(for="Short_Desc") Add a short description:
+                    input(type="text" id="Short_Desc" name="Short_Desc" class="big")
+            div(id='formRow')
+                    label(for="Long_Desc") Add the content of the post:
+                    input(type="text" id="Long_Desc" name="Long_Desc" class="big")
+            div(id='formRow')
+                    label(for="RepoURL") Add the repository url:
+                    input(type="text" id="RepoURL" name="RepoURL")
+            div(id='formRow')
+                    button(id="createPostButton" onclick="createNewPost()") Create Post
     
     script(src="../js/api.js") 

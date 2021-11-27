@@ -1,9 +1,22 @@
 extends ../layouts/vLayout.pug
 
 block content 
+    p(id='myID') #{id}
+    p(id='myName') #{name}
     div(id='vContent')
-        h1(id='a_H1') View All
-        p(id='a_P') View All Things returned by the API
-        div(id='contentHolder')
+        h1(id='a_H1') Edit your profile
+        p(id='a_P') You can only edit your profile anyways.
+        div(id='editorForm')
+            div(id='formRow')
+                    label(for="Username") Change your username:
+                    input(type="text" id="Username" name="Username")
+            div(id='formRow')
+                    label(for="Short_Desc") Add a short description:
+                    input(type="text" id="Short_Desc" name="Short_Desc" class="big")
+            div(id='formRow')
+                    label(for="Long_Desc") Add a long description:
+                    input(type="text" id="Long_Desc" name="Long_Desc" class="big")
+            div(id='formRow')
+                    button(id="loginButton" onclick="editMyProfile()") Submit Changes
     
-    script(src="../js/api.js") 
+    script(src="../../js/api.js") 

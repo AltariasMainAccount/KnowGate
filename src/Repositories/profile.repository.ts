@@ -3,14 +3,13 @@ import { Profile } from '../Models/ModelLoader';
 
 export interface IProfilePayload {
     name: string;
-    password: string;
     description: string;
     short_desc: string;
 }
 
 export const getProfiles = async (): Promise<Array<Profile>> => {
     const profileRepository = getRepository(Profile);
-    return profileRepository.find();
+    return profileRepository.find({ relations: ["posts"] });
 };
 
 /*
@@ -30,10 +29,8 @@ export const createProfile = async (payload: IProfilePayload): Promise<Profile> 
 
 export const getProfile = async (id: number): Promise<Profile | undefined | null> => {
     const profileRepository = getRepository(Profile);
-    const profile = await profileRepository.findOne({ id: id });
+    const profile = await profileRepository.findOne({ id: id }, { relations: ["posts"] });
     if (!profile) return null;
-    profile.posts = await profileRepository.createQueryBuilder().relation(Profile, "posts").of(profile).loadMany()
-    
     return profile;
 };
 

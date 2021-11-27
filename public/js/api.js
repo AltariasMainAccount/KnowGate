@@ -68,12 +68,13 @@ function viewOneProfile(id) {
               <h1>${escapeHtml(apiResponse.name)}</h1>
               <p>Description: ${apiResponse.description == null ? "No Description set" : escapeHtml(apiResponse.description)}</p>
             </div>
+            <h2>${escapeHtml(apiResponse.name)}'s Posts</h2>
         `;
         assocPosts.forEach(e => {
             divToChange.innerHTML += `
             <div id='extraContentCell'>
               <h2>
-                <a href='/posts/view/${e.id}'>${escapeHtml(e.name)}</a>
+                <a href='/posts/view/${e.id}'>${escapeHtml(e.title)}</a>
               </h2>
               <p>${e.short_desc == null ? "No Description set" : escapeHtml(e.short_desc)}</p>
             </div>
@@ -83,6 +84,60 @@ function viewOneProfile(id) {
     
     xhttp.open("GET", `/api/profiles/${id}`);
     xhttp.send();
+}
+
+function viewMyProfile() {
+    const myID = document.getElementById("myID").innerText;
+    
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        let divToChange = document.getElementById("contentHolder");
+        let apiResponse = JSON.parse(this.responseText);
+        let assocPosts = apiResponse.posts;
+        console.log(assocPosts);
+
+        divToChange.innerHTML += `
+            <div id='contentCell'>
+              <h1>${escapeHtml(apiResponse.name)}</h1>
+              <p>Description: ${apiResponse.description == null ? "No Description set" : escapeHtml(apiResponse.description)}</p>
+            </div>
+            <h2>${escapeHtml(apiResponse.name)}'s Posts</h2>
+        `;
+        assocPosts.forEach(e => {
+            divToChange.innerHTML += `
+            <div id='extraContentCell'>
+              <h2>
+                <a href='/posts/view/${e.id}'>${escapeHtml(e.title)}</a>
+              </h2>
+              <p>${e.short_desc == null ? "No Description set" : escapeHtml(e.short_desc)}</p>
+            </div>
+            `;       
+        });
+    }
+    
+    xhttp.open("GET", `/api/profiles/${myID}`);
+    xhttp.send();
+}
+
+function editMyProfile() {
+    const myID = document.getElementById("myID").innerText;
+    
+    let un = document.getElementById("Username").value != (null || '') ? document.getElementById("Username").value : document.getElementById("myName").value;
+    let short_desc = document.getElementById("Short_Desc").value;
+    let long_desc = document.getElementById("Long_Desc").value;
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        window.location.href = "/profiles/my";
+    }
+    
+    xhttp.open("PUT", `/api/profiles/${myID}`);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify({
+        "name": un,
+        "short_desc": short_desc,
+        "description": long_desc
+    }));
 }
 
 /*
@@ -121,8 +176,13 @@ function viewOnePost(id) {
         divToChange.innerHTML += `
         <div id='contentCell'>
             <h1>${escapeHtml(apiResponse.title)}</h1>
-            <p>Content: ${escapeHtml(apiResponse.content)}</p>
+            <h4>by<a href='/profiles/view/${apiResponse.profile.id}'>${escapeHtml(apiResponse.profile.name)}</a></h4>
+            <p>${escapeHtml(apiResponse.content)}</p>
             ${apiResponse.repositoryUrl == null ? "<p> No Repository Url set. </p>" : "<a href='"+ apiResponse.repositoryUrl +"'>Repository Link</a>"}
+        </div>
+        <div id='contentCell'>
+            <input type="text" id="commentBox" class="big"></input>
+            <button id="createPostCommentButton" onclick="createNewCommentOnPost()">Post Comment</button>
         </div>
         `;
         assocComments.forEach(e => {
@@ -139,16 +199,59 @@ function viewOnePost(id) {
     xhttp.send();
 }
 
+function createNewPost() {
+    const myID = document.getElementById("myID").innerText;
+    
+    let title = document.getElementById("Username").value != (null || '') ? document.getElementById("Username").value : "Dunce didn't put in a title!"
+    let short_desc = document.getElementById("Short_Desc").value;
+    let long_desc = document.getElementById("Long_Desc").value;
+    let repositoryUrl = document.getElementById("RepoURL").value;
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        window.location.href = `/posts`
+    }
+    
+    xhttp.open("post", `/api/posts/`);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify({
+        "title": title,
+        "short_desc": short_desc,
+        "content": long_desc,
+        "repositoryUrl": repositoryUrl,
+        "profileId": myID
+    }));
+}
+
+function createNewCommentOnPost() {
+    const myID = document.getElementById("myID").innerText;
+    const postID = getSplitPathName()[3];
+
+    let content = document.getElementById("commentBox").value;
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        location.reload();
+    }
+    
+    xhttp.open("post", `/api/postcomments/`);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify({
+        "content": content,
+        "rating": 5,
+        "profileId": myID,
+        "postId": postID
+    }));
+}
+
 // Login AJAX
 
 function login() {
     var un = document.getElementById("Username").value;
-    console.log(un);
     var pw = document.getElementById("Password").value;
-    console.log(pw);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onload = function () {
-        console.log(un + " " + pw);
+        window.location.href = "/dashboard"
     }
     
     xmlhttp.open("post", "/api/auth/login", true);
@@ -162,14 +265,12 @@ function login() {
 // Registration AJAX
 
 function register(form) {
-    var un = form.Username.value;
-    var pw = form.Password.value;
+    var un = document.getElementById("Username").value;
+    var pw = document.getElementById("Password").value;
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onload = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            registerResults();
-        }
+        window.location.href = "/login"
     }
 
     xmlhttp.open("post", "/api/auth/register", true);
@@ -179,21 +280,6 @@ function register(form) {
         "password": pw
     }));
 }
-
-function registerResults() {
-    var badRegistration = document.getElementById("BadRegistration");
-    if (xmlhttp.responseText.indexOf("failed") == -1) {
-        window.location.href = '/';
-    } else {
-        badRegistration.style.display = "block";
-        form.Username.select();
-        form.Username.className = "Highlighted";
-        setTimeout(function() {
-            badRegistration.style.display = 'none';
-        }, 3000);
-    }
-}
-
 
 // This is to define where you are
 
@@ -205,6 +291,11 @@ switch (path[1]) {
             case "view":
                 viewOneProfile(path[3]);
                 break;
+            case "my":
+                if (!(path[3] == "edit")) {
+                    viewMyProfile();
+                }
+                break;
             default:
                 viewAllProfiles();
                 break;
@@ -215,7 +306,10 @@ switch (path[1]) {
             case "view":
                 viewOnePost(path[3]);
                 break;
+            case "create":
+                break;
             default:
+                document.getElementById('hidden').style.display = 'initial';
                 viewAllPosts();
                 break;
         }

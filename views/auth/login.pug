@@ -5,12 +5,12 @@ block content
         div(id='loginFormHolder')
             div(id='loginForm')
                 h1 Login Form 
-                div(class='formRow')
+                div(id='formRow')
                     label(for="Username") Username:
                     input(type="text" size="24" id="Username" name="Username") 
-                div(class='formRow')
+                div(id='formRow')
                     label(for="Password") Password:
                     input(type="password" size="32" id="Password" name="Password") 
-                div(class='formRow' id='LoginButtonDiv')
+                div(id='formRow')
                     button(id="loginButton" onclick="login()") Login
     script(src="js/api.js") 

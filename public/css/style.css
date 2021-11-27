@@ -9,6 +9,18 @@ body {
     color: white;
 }
 
+#myID {
+    display: none;
+}
+
+#myName {
+    display: none;
+}
+
+#hidden {
+    display: none;
+}
+
 /*
     Header Information
 */
@@ -134,9 +146,51 @@ body {
     height:1500px;
 }
 
+#hContent a {
+    color: #AAAAFF;
+}
+
+#hContent a:visited {
+    color: #9696EE;
+}
+
+#vContent a {
+    color: #AAAAFF;
+}
+
+#vContent a:visited {
+    color: #9696EE;
+}
+
 /*
     Content Extra Stuff (for rendering purposes)
 */
+
+#formRow {
+    margin-top: 1%;
+    margin-left: 1%;
+    margin-right: 1%;
+    padding: 5px;
+    /* Border Stuff */
+    border: 2px solid #303040;
+    border-radius: 5px;
+    /* Coloration */
+    background-color: #303040;
+}
+
+#formRow label {
+    color: white;
+    font-weight: bold;
+}
+
+#formRow input {
+    background-color: #AAAAFF;
+}
+
+#formRow input .big {
+    height: 42px;
+    width : 300px;
+}
 
 #contentCell {
     /* Margins */
@@ -156,7 +210,7 @@ body {
     margin-left: 1%;
 }
 
-#contentCell h2 {
+#contentCell h4 {
     margin-left: 1%;
 }
 
@@ -164,8 +218,24 @@ body {
     color: #AAAAFF;
 }
 
+#contentcell h1 a:visited {
+    color: #9696EE;
+}
+
 #contentCell h2 a {
     color: #AAAAFF;
+}
+
+#contentcell h2 a:visited {
+    color: #9696EE;
+}
+
+#contentCell h4 a {
+    color: #AAAAFF;
+}
+
+#contentCell h4 a:visited {
+    color: #9696EE;
 }
 
 #contentCell a {
@@ -191,8 +261,33 @@ body {
     background-color: #252535;
 }
 
+#extraContentCell h3 {
+    margin-left: 1%;
+}
+
 #extraContentCell h4 {
     margin-left: 1%;
+}
+
+#extraContentCell h3 a {
+    color: #AAAAFF;
+}
+
+#extraContentCell h3 a:visited {
+    color: #9696EE;
+}
+
+#extraContentCell h4 a {
+    color: #AAAAFF;
+}
+
+#extraContentCell h4 a:visited {
+    color: #9696EE;
+}
+
+#extraContentCell a {
+    margin-left: 1%;
+    color: #AAAAFF;
 }
 
 #extraContentCell p {

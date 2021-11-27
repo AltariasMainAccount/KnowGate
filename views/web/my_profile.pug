@@ -1,9 +1,13 @@
 extends ../layouts/vLayout.pug
 
 block content 
+    p(id='myID') #{id}
+    p(id='myName') #{name}
     div(id='vContent')
         h1 View your profile
         p View your profile. That's about it.
+        h2 
+            a(href="/profiles/my/edit") Edit your Profile here
         div(id='contentHolder')
     
     script(src="../js/api.js") 

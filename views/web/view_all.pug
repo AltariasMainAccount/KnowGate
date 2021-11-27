@@ -1,9 +1,12 @@
 extends ../layouts/vLayout.pug
 
 block content 
+    p(id='myID') #{id}
     div(id='vContent')
         h1(id='a_H1') View All
         p(id='a_P') View All Things returned by the API
+        h2(id='hidden') 
+            a(href="/posts/create") Create your own post
         div(id='contentHolder')
     
     script(src="../js/api.js") 

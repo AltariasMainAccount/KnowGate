@@ -11,7 +11,7 @@ export interface IPostPayload {
 
 export const getPosts = async (): Promise<Array<Post>> => {
     const postRepository = getRepository(Post);
-    return postRepository.find();
+    return postRepository.find({ relations: ["profile", "comments", "comments.profile"]  });
 };
   
 export const createPost = async (payload: IPostPayload): Promise<Post> => {
@@ -25,7 +25,7 @@ export const createPost = async (payload: IPostPayload): Promise<Post> => {
   
 export const getPost = async (id: number): Promise<Post | undefined | null> => {
     const postRepository = getRepository(Post);
-    const post = await postRepository.findOne({ id: id }, { relations: ["comments", "comments.profile"]  });
+    const post = await postRepository.findOne({ id: id }, { relations: ["profile", "comments", "comments.profile"]  });
     if (!post) return null;
     return post;
 };

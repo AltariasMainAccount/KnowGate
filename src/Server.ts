@@ -44,8 +44,6 @@ app.use(Router);
 
 // Create the connection to the database
 createConnection().then(_connection => {
-  // Log all connection information
-  console.log(SECRET, _connection);
   // Start the webserver
   app.listen(PORT, () => { // Start it on PORT, which is 8000
     console.log("Server is running on port", PORT);
