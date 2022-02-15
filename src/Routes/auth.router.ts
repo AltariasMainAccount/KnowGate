@@ -5,7 +5,6 @@ const router = express.Router();
 
 router.post("/login", async (req, res) => {
     const controller = new AuthController();
-    console.log(req.body);
     const response = await controller.login(req.body);
     if (response.res == false) {
         return res.status(401).send({ message: response.error });
